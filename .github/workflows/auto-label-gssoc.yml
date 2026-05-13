@@ -1,0 +1,69 @@
+# .github/workflows/auto-label-gssoc.yml
+
+name: Apply GSSoC Label
+
+on:
+  issues:
+    types:
+      - opened
+
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+
+  # ------------------------------------------------------------
+  # Auto-label newly opened issues
+  # ------------------------------------------------------------
+  label-new-issues:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add gssoc-26 label to new issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              labels: ['gssoc-2026']
+            })
+
+  # ------------------------------------------------------------
+  # Manually label all existing open issues
+  # ------------------------------------------------------------
+  label-existing-issues:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add gssoc-26 label to all open issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issues = await github.paginate(
+              github.rest.issues.listForRepo,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open'
+              }
+            );
+
+            for (const issue of issues) {
+              // Skip pull requests
+              if (issue.pull_request) continue;
+
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['gssoc-26']
+              });
+
+              console.log(`Added label to issue #${issue.number}`);
+            }

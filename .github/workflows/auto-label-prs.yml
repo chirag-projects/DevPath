@@ -1,0 +1,123 @@
+name: Auto Label Pull Requests
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+
+jobs:
+
+  # ------------------------------------------------------------
+  # Auto-label new pull requests
+  # ------------------------------------------------------------
+  auto-label-new-prs:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Apply labels to PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const branch = pr.head.ref;
+
+            let labels = ['gssoc-26'];
+
+            if (branch.startsWith('fix/')) {
+              labels.push('bug');
+            }
+
+            if (branch.startsWith('feat/')) {
+              labels.push('enhancement');
+            }
+
+            if (branch.startsWith('docs/')) {
+              labels.push('documentation');
+            }
+
+            if (branch.startsWith('style/')) {
+              labels.push('ui');
+            }
+
+            if (branch.startsWith('test/')) {
+              labels.push('testing');
+            }
+
+            if (branch.startsWith('refactor/')) {
+              labels.push('refactor');
+            }
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              labels
+            });
+
+  # ------------------------------------------------------------
+  # Apply labels to ALL existing PRs
+  # ------------------------------------------------------------
+  label-existing-prs:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Label all existing PRs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pulls = await github.paginate(
+              github.rest.pulls.list,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'all'
+              }
+            );
+
+            for (const pr of pulls) {
+
+              const branch = pr.head.ref;
+              let labels = ['gssoc-26'];
+
+              if (branch.startsWith('fix/')) {
+                labels.push('bug');
+              }
+
+              if (branch.startsWith('feat/')) {
+                labels.push('enhancement');
+              }
+
+              if (branch.startsWith('docs/')) {
+                labels.push('documentation');
+              }
+
+              if (branch.startsWith('style/')) {
+                labels.push('ui');
+              }
+
+              if (branch.startsWith('test/')) {
+                labels.push('testing');
+              }
+
+              if (branch.startsWith('refactor/')) {
+                labels.push('refactor');
+              }
+
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels
+              });
+
+              console.log(`Labels added to PR #${pr.number}`);
+            }
