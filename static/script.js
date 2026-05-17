@@ -627,6 +627,55 @@ if (isDetailPage) {
   // Copy Code button
   // ----------------------------------------------------------
   var btnCopyCode  = document.getElementById("btn-copy-code");
+   // ============================================================
+// ROADMAP PROGRESS TRACKER
+// ============================================================
+
+var roadmapCheckboxes = document.querySelectorAll(".roadmap-checkbox");
+var progressFill = document.getElementById("roadmap-progress-fill");
+var progressText = document.getElementById("roadmap-progress-text");
+
+function updateRoadmapProgress() {
+    if (!roadmapCheckboxes.length) return;
+
+    var completed = 0;
+
+    roadmapCheckboxes.forEach(function(cb){
+
+        // find parent <li class="roadmap-step">
+        var step = cb.closest(".roadmap-step");
+
+        if(cb.checked){
+            completed++;
+            if(step) step.classList.add("completed");
+        } else {
+            if(step) step.classList.remove("completed");
+        }
+
+    });
+
+    var percent = Math.round(
+        (completed / roadmapCheckboxes.length) * 100
+    );
+
+    if(progressFill){
+        progressFill.style.width = percent + "%";
+    }
+
+    if(progressText){
+        progressText.textContent =
+            percent + "% completed";
+    }
+}
+
+roadmapCheckboxes.forEach(function(cb){
+    cb.addEventListener(
+        "change",
+        updateRoadmapProgress
+    );
+});
+
+updateRoadmapProgress();
   var copyToast    = document.getElementById("copy-toast");
   var toastTimeout = null;
 
