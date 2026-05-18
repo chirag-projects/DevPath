@@ -1,48 +1,4 @@
 <!DOCTYPE html>
-<!--
-  portfolio.html
-  ==============
-  Project:    Personal Portfolio Website
-  Difficulty: Beginner
-  Skills:     HTML, CSS, JavaScript
-  Time:       Low (a few hours)
-
-  What you will build:
-      A clean, professional personal portfolio website with five sections:
-      navigation, hero, projects grid, skills list, and a contact form.
-      The site is fully responsive and uses only HTML, CSS, and
-      vanilla JavaScript — no frameworks, no build tools, no installs.
-
-  How to run:
-      Open this file directly in any web browser.
-      No server or install step needed.
-
-  Learning goals:
-      - Writing semantic HTML5 structure
-      - Using CSS Flexbox and CSS Grid for layout
-      - Making a site responsive with media queries
-      - Animating elements on scroll using IntersectionObserver
-      - Validating a contact form with vanilla JavaScript
-      - Organising CSS with custom properties (variables)
-
-  Roadmap:
-      Step 1:  Open the file in a browser — the structure and styles load
-      Step 2:  Replace all placeholder text with your real information
-      Step 3:  Complete the smooth-scroll navigation in initNavigation()
-      Step 4:  Add your real projects to the projects grid (HTML section)
-      Step 5:  Complete the skill bar animation in animateSkillBars()
-      Step 6:  Complete the scroll reveal animation in initScrollReveal()
-      Step 7:  Complete the contact form validation in validateForm()
-      Step 8:  Make the mobile hamburger menu open and close in toggleMenu()
-      Step 9:  Test every section on a 375px mobile screen using DevTools
-      Step 10: Deploy to GitHub Pages (Settings > Pages > Deploy from main)
-
-  Deployment (GitHub Pages):
-      1. Push this file to a GitHub repository as index.html
-      2. Go to repository Settings > Pages
-      3. Set source to "Deploy from a branch" and select main / root
-      4. Your site will be live at https://your-username.github.io/repo-name
--->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -60,8 +16,10 @@
     /* ==============================================================
        CSS CUSTOM PROPERTIES
        Change these to reskin the entire site instantly.
-       ============================================================== */
-       /* =========================
+      ============================================================== */
+
+
+  /* =========================
    DARK MODE VARIABLES
    ========================= */
 
@@ -206,7 +164,7 @@ body.dark {
       color: var(--color-primary-dk);
       letter-spacing: -0.03em;
     }
-    /* TODO Step 2: Replace [YN] with your actual initials */
+   
     .nav-logo span { color: var(--color-accent); }
 
     .nav-links {
@@ -235,7 +193,7 @@ body.dark {
     }
     .nav-cta:hover { opacity: 0.88; text-decoration: none; }
 
-    /* Hamburger icon (mobile only) */
+    /* Hamburger icon */
     .nav-hamburger {
       display: none;
       flex-direction: column;
@@ -400,9 +358,7 @@ body.dark {
       color: rgba(255,255,255,0.9);
       box-shadow: var(--shadow-lg);
       flex-shrink: 0;
-      /* TODO Step 2: Replace this with an <img> tag pointing to your real photo.
-         Example: <img src="photo.jpg" alt="Your Name" class="hero-avatar" />
-         Then remove the background-color and text content. */
+     
     }
 
     /* ==============================================================
@@ -448,9 +404,7 @@ body.dark {
       color: rgba(255,255,255,0.9);
       letter-spacing: -0.02em;
     }
-    /* TODO Step 4: Replace these generic colours with real project screenshots.
-       Use <img src="screenshot.png" alt="..." class="project-banner-img" loading="lazy" />
-       and set height: 180px on .project-card img */
+    
     .banner-blue   { background: linear-gradient(135deg, #2335c2, #4f6ef7); }
     .banner-purple { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
     .banner-teal   { background: linear-gradient(135deg, #0891b2, #06b6d4); }
@@ -801,10 +755,10 @@ body.dark {
       <div class="projects-grid">
 
         <!-- ---- Project Card 1 ---- -->
-        <!-- TODO Step 4: Replace with your real project details -->
+        
         <article class="project-card reveal">
           <div class="project-banner banner-blue">
-            <!-- Replace this with a screenshot: <img src="screenshot.png" alt="Project name" loading="lazy"> -->
+           
             Project One
           </div>
           <div class="project-body">
@@ -819,7 +773,7 @@ body.dark {
               <span class="tag">JSON</span>
             </div>
             <div class="project-links">
-              <!-- TODO Step 4: Replace # with your real GitHub and live URLs -->
+              
               <a href="#" class="project-link project-link--primary" target="_blank" rel="noopener noreferrer">Live Demo</a>
               <a href="#" class="project-link project-link--ghost"   target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
@@ -1054,12 +1008,12 @@ body.dark {
        FOOTER
        ============================================================ -->
   <footer class="footer">
-    <!-- TODO Step 2: Replace [Your Name] and [Your Title] -->
+    
     <div class="footer-name">SMRITHI KRISHNA</div>
     <p class="footer-tagline">Frontend Developer — Building things that matter</p>
 
     <div class="footer-links">
-      <!-- TODO Step 2: Replace # with your real profile URLs -->
+
       <a href="#" target="_blank" rel="noopener noreferrer">https://github.com/Smrithikrishna123</a>
       <a href="#" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/smrithi-krishna-741a37374/</a>
       <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
@@ -1076,22 +1030,8 @@ body.dark {
        JAVASCRIPT
        ============================================================ -->
   <script>
-    // ==========================================================
-    // TODO Step 3: initNavigation()
-    // Highlight the correct nav link as the user scrolls between sections.
-    //
-    // Tasks:
-    //   1. Collect all nav links: document.querySelectorAll(".nav-link")
-    //   2. Collect all sections with an id: document.querySelectorAll("section[id]")
-    //   3. Add a "scroll" event listener to window.
-    //   4. On each scroll event, find which section is currently in the
-    //      viewport by comparing window.scrollY to section.offsetTop.
-    //      The active section is the one whose top is just above the middle
-    //      of the viewport:
-    //        section.offsetTop - window.innerHeight / 2 <= window.scrollY
-    //   5. Remove "active" class from all nav links.
-    //   6. Add "active" class to the link whose href matches #<section.id>.
-    // ==========================================================
+
+   
 // =========================
 // DARK MODE TOGGLE
 // =========================
@@ -1157,25 +1097,7 @@ function initTheme() {
     }
 
 
-    // ==========================================================
-    // TODO Step 8: toggleMenu() and closeMenu()
-    // Open and close the mobile navigation drawer.
-    //
-    // toggleMenu() tasks:
-    //   1. Toggle the "open" class on #hamburger.
-    //   2. Toggle the "open" class on #nav-mobile.
-    //   3. Update aria-expanded on the hamburger button:
-    //        var isOpen = hamburger.classList.contains("open");
-    //        hamburger.setAttribute("aria-expanded", isOpen);
-    //
-    // closeMenu() tasks:
-    //   1. Remove "open" from #hamburger.
-    //   2. Remove "open" from #nav-mobile.
-    //   3. Set aria-expanded to "false".
-    //
-    // Wire toggleMenu() to the hamburger button's onclick below.
-    // closeMenu() is already called by each mobile nav link (see HTML).
-    // ==========================================================
+    
     function toggleMenu() {
       // --- Write your code here ---
        const hamburger = document.getElementById("hamburger");
@@ -1189,7 +1111,7 @@ function initTheme() {
     }
 
     function closeMenu() {
-      // --- Write your code here ---
+
        const hamburger = document.getElementById("hamburger");
   const mobileNav = document.getElementById("nav-mobile");
 
@@ -1204,21 +1126,6 @@ function initTheme() {
     document.getElementById("hamburger").addEventListener("click", toggleMenu);
 
 
-    // ==========================================================
-    // TODO Step 5: animateSkillBars()
-    // Animate the skill bar widths from 0% to their data-pct value.
-    //
-    // Tasks:
-    //   1. Select all elements with class "skill-bar":
-    //        document.querySelectorAll(".skill-bar")
-    //   2. Loop through each bar.
-    //   3. Read the target percentage: bar.getAttribute("data-pct")
-    //   4. Set bar.style.width = pct + "%"
-    //      The CSS transition: width 1s ease handles the animation automatically.
-    //
-    // This function is called by initScrollReveal() when the skills section
-    // enters the viewport — so the animation only fires when the user can see it.
-    // ==========================================================
     function animateSkillBars() {
       // --- Write your code here ---
       const bars = document.querySelectorAll(".skill-bar");
@@ -1232,27 +1139,6 @@ function initTheme() {
     }
 
 
-    // ==========================================================
-    // TODO Step 6: initScrollReveal()
-    // Use IntersectionObserver to reveal elements as they scroll into view.
-    //
-    // Tasks:
-    //   1. Select all elements with class "reveal".
-    //   2. Create an IntersectionObserver:
-    //        var observer = new IntersectionObserver(function(entries) {
-    //            entries.forEach(function(entry) {
-    //                if (entry.isIntersecting) {
-    //                    entry.target.classList.add("visible");
-    //                    // If this is the skills section, animate bars
-    //                    if (entry.target.closest("#skills")) {
-    //                        animateSkillBars();
-    //                    }
-    //                    observer.unobserve(entry.target); // Fire once only
-    //                }
-    //            });
-    //        }, { threshold: 0.15 }); // Fire when 15% of element is visible
-    //   3. Call observer.observe(el) on each reveal element.
-    // ==========================================================
     function initScrollReveal() {
       // --- Write your code here ---
       const revealElements =
@@ -1284,39 +1170,9 @@ function initTheme() {
     }
 
 
-    // ==========================================================
-    // TODO Step 7: validateForm()
-    // Validate the contact form before "submitting" it.
-    //
-    // Validation rules:
-    //   name    — required, at least 2 characters
-    //   email   — required, must contain "@" and "."
-    //   subject — required, at least 3 characters
-    //   message — required, at least 10 characters
-    //
-    // Tasks:
-    //   1. Read the value from each field using document.getElementById().value.trim()
-    //   2. For each field, check the rule above.
-    //   3. If a rule fails:
-    //        - Show the error message in the field's #<name>-error div.
-    //        - Add the "error-field" CSS class to the input.
-    //        - Set a flag: var isValid = false
-    //   4. If a rule passes:
-    //        - Clear the error div.
-    //        - Remove "error-field" from the input.
-    //   5. If all rules pass (isValid is true):
-    //        - Hide the form: document.getElementById("contact-form").style.display = "none"
-    //        - Show the success message: document.getElementById("form-success").style.display = "block"
-    //        - Note: in a real project you would send the data to a backend here.
-    //          For now, just showing the success message is enough.
-    //   6. Return isValid.
-    // ==========================================================
     function validateForm() {
-      var isValid = true;
-
-      // --- Write your validation code here ---
- 
-  const name = document
+    var isValid = true;
+    const name = document
     .getElementById("name")
     .value.trim();
 
@@ -1444,6 +1300,6 @@ document.addEventListener("click", (e) => {
 });
 
   </script>
-
 </body>
 </html>
+
