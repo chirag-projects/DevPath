@@ -1925,7 +1925,6 @@ select:focus {
   .section-sub { margin-bottom: 40px; }
 }
 
-<<<<<<< HEAD
 /* =============================================================
    Dark Mode — Component-specific overrides
    These handle hard-coded values that CSS variables alone
@@ -2080,7 +2079,6 @@ html[data-theme="dark"] .hvc-title {
 }
 html[data-theme="dark"] .hvc-sub {
   color: #475569;
-=======
 .github-input-reveal input {
     border: 1px solid var(--border);
     border-radius: var(--r-xs);
@@ -2123,7 +2121,6 @@ html[data-theme="dark"] .hvc-sub {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
->>>>>>> upstream/main
 }
 
 @media (max-width: 768px) {
@@ -2262,4 +2259,5 @@ html[data-theme="dark"] .hvc-sub {
 
 #scroll-top-btn.visible {
     display: flex;
+}
 }
