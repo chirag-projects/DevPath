@@ -187,6 +187,71 @@
   </section>
 
   <!-- ============================================================
+       Progress + Achievements
+       ============================================================ -->
+  <section class="progress-section" id="progress">
+    <div class="container">
+      <div class="section-eyebrow">Your DevPath Profile</div>
+      <h2 class="section-title">Track Progress, Unlock Badges, and See Your Growth</h2>
+      <p class="section-sub">Local progress is saved in your browser so you can build momentum without signing in.</p>
+
+      <div class="profile-grid">
+        <div class="profile-card">
+          <div class="profile-card-header">
+            <div>
+              <span class="profile-label">Total Points</span>
+              <h3 id="progress-points">0</h3>
+            </div>
+            <button type="button" id="reset-progress-btn" class="btn-ghost">Reset Progress</button>
+          </div>
+          <div class="progress-meter" aria-label="Progress meter">
+            <span class="progress-meter-fill" id="progress-meter-fill" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">0%</span>
+          </div>
+          <ul class="progress-stats" id="progress-stats">
+            <li><strong>Searches</strong><span>0</span></li>
+            <li><strong>Projects Viewed</strong><span>0</span></li>
+            <li><strong>Code Opens</strong><span>0</span></li>
+            <li><strong>Projects Completed</strong><span>0</span></li>
+          </ul>
+        </div>
+
+        <div class="badge-card">
+          <div class="badge-card-header">
+            <h3>Badges</h3>
+            <p>Unlock achievements as you explore projects and open starter code.</p>
+          </div>
+          <ul class="progress-badge-grid" id="progress-badges"></ul>
+        </div>
+
+        <div class="achievement-card">
+          <div class="achievement-card-header">
+            <h3>Recent Achievements</h3>
+          </div>
+          <ul class="achievement-list" id="achievement-list"></ul>
+        </div>
+
+        <div class="history-card">
+          <div class="history-card-header">
+            <h3>Completed Projects</h3>
+            <p>Track your recently finished work.</p>
+          </div>
+          <ol class="achievement-list" id="completed-history-list"></ol>
+        </div>
+
+        <div class="leaderboard-card">
+          <div class="leaderboard-card-header">
+            <h3>Leaderboard</h3>
+            <p>See where you rank locally compared to other learners.</p>
+          </div>
+          <ol class="leaderboard-list" id="leaderboard-list"></ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="achievement-toast" id="achievement-toast" role="status" aria-live="polite"></div>
+
+  <!-- ============================================================
        Language / Skill Strip (visual trust element)
        ============================================================ -->
 

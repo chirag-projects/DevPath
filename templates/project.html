@@ -263,6 +263,7 @@
               <button class="btn-view-code-sm" id="btn-view-code-sm">View Code</button>
               <a href="/project/{{ project.id }}/download" class="btn-download-sm">Download</a>
             </div>
+            <button id="btn-mark-complete" class="btn-ghost btn-mark-complete" type="button">Mark Project Complete</button>
           </div>
 
         </aside>
@@ -315,6 +316,8 @@
     Copied to clipboard!
   </div>
 
+  <div class="achievement-toast" id="achievement-toast" role="status" aria-live="polite"></div>
+
   <!-- ============================================================
        Footer
        ============================================================ -->
@@ -336,9 +339,10 @@
   <!-- Scroll-to-top button -->
   <button id="scroll-top-btn" aria-label="Back to top" title="Back to top">↑</button>
 
-  <!-- Pass project ID to the JavaScript without hardcoding -->
+  <!-- Pass project metadata to the JavaScript without hardcoding -->
   <script>
     var PROJECT_ID = parseInt("{{ project.id }}", 10);
+    var PROJECT_TITLE = "{{ project.title | escapejs }}";
   </script>
   <script src="/static/script.js"></script>
 </body>
