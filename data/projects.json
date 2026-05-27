@@ -311,37 +311,6 @@
     ],
     "starter_code": "starter_code/api_data_pipeline.py"
   },
-  {
-    "id": 11,
-    "title": "Secure Crypto Vault",
-    "skills": ["Python"],
-    "level": "Intermediate",
-    "interest": "Cybersecurity",
-    "time": "Medium",
-    "description": "A professional-grade CLI utility for storing sensitive credentials using industry-standard AES-256-GCM encryption. Teaches cryptography basics and secure key derivation.",
-    "features": [
-      "Encrypt and store passwords securely",
-      "PBKDF2 key derivation for master passwords",
-      "Authenticated encryption (AES-GCM)",
-      "JSON-based local data persistence"
-    ],
-    "tech_stack": ["Python", "Cryptography library", "JSON", "base64"],
-    "roadmap": [
-      "Step 1: Set up a virtual environment and install cryptography",
-      "Step 2: Implement PBKDF2 for secure master key generation",
-      "Step 3: Build the AES-GCM encryption/decryption logic",
-      "Step 4: Create functions to save/load the encrypted vault file",
-      "Step 5: Build a secure CLI menu for adding/viewing entries",
-      "Step 6: Implement salt and nonce handling for high security",
-      "Step 7: Test with multiple service entries and verify decryption"
-    ],
-    "resources": [
-      "Python Cryptography docs: https://cryptography.io/en/latest/",
-      "OWASP Key Derivation: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html",
-      "Real Python Security: https://realpython.com/python-api-key-setup-and-usage/"
-    ],
-    "starter_code": "starter_code/secure_vault.py"
- },
  {
   "id": 11,
   "title": "AI Resume Analyzer",
@@ -391,11 +360,42 @@
     "Flask quickstart: https://flask.palletsprojects.com/quickstart"
   ],
   "starter_code": "starter_code/ai_resume_analyzer.py"
-  }
+  },
+  {
+    "id": 12,
+    "title": "Secure Crypto Vault",
+    "skills": ["Python"],
+    "level": "Intermediate",
+    "interest": "Cybersecurity",
+    "time": "Medium",
+    "description": "A professional-grade CLI utility for storing sensitive credentials using industry-standard AES-256-GCM encryption. Teaches cryptography basics and secure key derivation.",
+    "features": [
+      "Encrypt and store passwords securely",
+      "PBKDF2 key derivation for master passwords",
+      "Authenticated encryption (AES-GCM)",
+      "JSON-based local data persistence"
+    ],
+    "tech_stack": ["Python", "Cryptography library", "JSON", "base64"],
+    "roadmap": [
+      "Step 1: Set up a virtual environment and install cryptography",
+      "Step 2: Implement PBKDF2 for secure master key generation",
+      "Step 3: Build the AES-GCM encryption/decryption logic",
+      "Step 4: Create functions to save/load the encrypted vault file",
+      "Step 5: Build a secure CLI menu for adding/viewing entries",
+      "Step 6: Implement salt and nonce handling for high security",
+      "Step 7: Test with multiple service entries and verify decryption"
+    ],
+    "resources": [
+      "Python Cryptography docs: https://cryptography.io/en/latest/",
+      "OWASP Key Derivation: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html",
+      "Real Python Security: https://realpython.com/python-api-key-setup-and-usage/"
+    ],
+    "starter_code": "starter_code/secure_vault/valt.py"
+ }
 
   ,
   {
-    "id": 8,
+    "id": 13,
     "title": "Number Guessing Game",
     "skills": ["Python"],
     "level": "Beginner",
@@ -426,7 +426,7 @@
     "starter_code": "starter_code/number_guessing.py"
   },
   {
-    "id": 9,
+    "id": 14,
     "title": "Simple Email Automation",
     "skills": ["Python"],
     "level": "Beginner",
@@ -457,7 +457,7 @@
     "starter_code": "starter_code/email_automation.py"
   },
   {
-    "id": 10,
+    "id": 15,
     "title": "Quiz App",
     "skills": ["HTML", "CSS", "JavaScript"],
     "level": "Beginner",
