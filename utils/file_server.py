@@ -18,11 +18,15 @@ def resolve_starter_file(project):
     if not raw_path:
         return None
 
-    # Only use the filename portion — never trust a full path from the data file
-    filename = os.path.basename(raw_path)
-    full_path = os.path.join(STARTER_CODE_DIR, filename)
+    # Support subdirectory paths (e.g. starter_code/survey_form/index.html)
+    # while still preventing path traversal outside STARTER_CODE_DIR.
+    relative_path = raw_path.replace("starter_code/", "", 1) if raw_path.startswith("starter_code/") else raw_path
+    full_path = os.path.normpath(os.path.join(STARTER_CODE_DIR, relative_path))
 
-    if not os.path.exists(full_path):
+    if not full_path.startswith(STARTER_CODE_DIR):
+        return None
+
+    if not os.path.isfile(full_path):
         return None
 
     return full_path
