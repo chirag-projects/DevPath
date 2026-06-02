@@ -1,7 +1,7 @@
 // script.js — DevPath client-side logic
 //
 // Responsibilities:
-//   - Theme initialisation (dark / light) with localStorage persistence
+//   - Dark mode toggle
 //   - Mobile navigation toggle
 //   - Skill chip manager (add/remove skills)
 //   - Form validation with per-field error messages
@@ -110,6 +110,67 @@
 
 }());
 
+
+// ============================================================
+// Dark Mode Toggle & Synchronization
+// ============================================================
+// UX Behavior Design Note:
+// 1. System Preference Sync: By default, the application respects the OS dark/light mode settings
+//    (using matchMedia("(prefers-color-scheme: dark)")).
+// 2. Manual Override (Intentional UX Pattern): Once a user explicitly chooses a theme by clicking the toggle,
+//    their manual preference is cached in localStorage. This manual choice intentionally takes precedence
+//    over the system preferences to provide a stable, consistent theme across sessions.
+// 3. System Re-sync: If the user wishes to revert back to system tracking, they can clear their browser data/localStorage.
+//    The media query listener will automatically resume tracking system preferences when no localStorage key exists.
+(function initTheme() {
+  var toggle = document.getElementById("theme-toggle");
+  var html = document.documentElement;
+  var sunIcon = toggle && toggle.querySelector(".theme-toggle-sun");
+  var moonIcon = toggle && toggle.querySelector(".theme-toggle-moon");
+
+  function getPreferredTheme() {
+    var saved = localStorage.getItem("theme");
+    if (saved) return saved;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  function setTheme(theme) {
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+    if (toggle) {
+      // Dynamic accessibility tracking using aria-pressed (true if dark mode is active)
+      toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+      if (sunIcon && moonIcon) {
+        if (theme === "dark") {
+          sunIcon.style.display = "none";
+          moonIcon.style.display = "inline";
+        } else {
+          sunIcon.style.display = "inline";
+          moonIcon.style.display = "none";
+        }
+      }
+    }
+  }
+
+  // Active theme is already initialized in <head> to prevent Flash of Unstyled Content (FOUC).
+  // We sync buttons and accessibility attributes based on the current state.
+  var activeTheme = html.getAttribute("data-theme") || getPreferredTheme();
+  setTheme(activeTheme);
+
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      var current = html.getAttribute("data-theme") || "light";
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+  }
+
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+    // Only sync dynamic system changes if no manual preference currently overrides it.
+    if (!localStorage.getItem("theme")) {
+      setTheme(e.matches ? "dark" : "light");
+    }
+  });
+})();
 
 // ============================================================
 // Detect which page we are on

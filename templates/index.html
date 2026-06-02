@@ -11,21 +11,7 @@
     document.documentElement.setAttribute("data-entry-anim", "true");
   </script>
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
-  <!--
-    Anti-FOUC theme script — MUST come before the stylesheet.
-    Reads localStorage synchronously and sets html[data-theme] so the
-    browser applies the correct CSS variables on the very first paint.
-    Falls back to the OS prefers-color-scheme if no preference is saved.
-  -->
-  <script>
-    (function () {
-      try {
-        /* Default to light mode; only honour a value the user explicitly saved */
-        var saved = localStorage.getItem('devpath-theme');
-        document.documentElement.dataset.theme = saved || 'light';
-      } catch (e) { /* localStorage blocked in some private modes */ }
-    }());
-  </script>
+  {% include 'partials/theme_head.html' %}
   <link rel="stylesheet" href="/static/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
@@ -72,6 +58,7 @@
           </svg>
         </button>
       </div>
+      {% include 'partials/theme_toggle.html' %}
       <!-- Mobile hamburger toggle -->
       <button class="nav-mobile-toggle" id="nav-mobile-toggle"
               aria-label="Toggle navigation"
