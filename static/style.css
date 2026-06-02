@@ -610,6 +610,8 @@ html[data-entry-anim="true"] .form-card form > .btn-submit              { animat
   border: none;
   cursor: pointer;
   padding: 4px;
+  position: relative;
+  z-index: 10000;
 }
 
 .nav-mobile-toggle:focus-visible {
@@ -642,13 +644,20 @@ html[data-entry-anim="true"] .form-card form > .btn-submit              { animat
 .nav-mobile-menu {
   display: none;
   flex-direction: column;
-  padding: 16px 32px 20px;
-  background: var(--bg-mobile-menu);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  padding: 100px 32px 20px;
+  background: var(--indigo-900);
+
+  border-top: 1px solid rgba(255,255,255,0.06);
+  z-index: 9999;
 }
 
 .nav-mobile-menu.open {
-  display: flex;
+    display: flex;
 }
 
 .nav-mobile-link {
