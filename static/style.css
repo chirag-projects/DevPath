@@ -1172,9 +1172,8 @@ html[data-theme="dark"] .theme-toggle-label::before {
 .skill-strip-items {
   display: flex;
   align-items: center;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 0;
-  white-space: nowrap;
 }
 
 /* Base skill-strip item (marquee/generic) */

@@ -23,6 +23,14 @@ WEIGHT_INTEREST = SCORING_WEIGHTS["interest"]
 WEIGHT_TIME = SCORING_WEIGHTS["time"]
 
 
+VALID_LEVELS = {"beginner", "intermediate", "advanced"}
+VALID_INTERESTS = {
+    "web", "data", "education", "automation", "games",
+    "cybersecurity", "devops", "mobile", "machine learning/ai",
+    "artificial intelligence", "cloud computing", "mobile app development"
+}
+VALID_TIMES = {"low", "medium", "high"}
+
 # Common aliases and abbreviations for skills
 # This improves recommendation accuracy by normalizing user input
 SKILL_ALIASES = {
@@ -163,8 +171,8 @@ def validate_recommendation_inputs(skills, level, interest, time_availability):
     elif level.strip().lower() not in VALID_LEVELS:
         errors.append("Invalid experience level. Choose Beginner, Intermediate, or Advanced.")
 
-    if not interest or not interest.strip():
-        errors.append("Please select an area of interest.")
+    if not interest or not isinstance(interest, str) or interest.strip().lower() not in VALID_INTERESTS:
+        errors.append("Please select a valid area of interest.")
 
     if not time_availability or not time_availability.strip():
         errors.append("Please select your time availability.")
