@@ -34,7 +34,10 @@ def resolve_starter_file(project):
     if not full_path.startswith(STARTER_CODE_DIR + os.sep):
         return None
 
-    if not os.path.exists(full_path):
+    if not full_path.startswith(STARTER_CODE_DIR):
+        return None
+
+    if not os.path.isfile(full_path):
         return None
 
     return full_path
