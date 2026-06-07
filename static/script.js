@@ -453,7 +453,7 @@ updateProfileWidgets();
     return valid;
   }
 
-<<<<<<< HEAD
+
 
   // ----------------------------------------------------------
   // Form submission and API call
