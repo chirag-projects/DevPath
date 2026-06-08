@@ -596,6 +596,32 @@ updateProfileWidgets();
     span.className = "project-tag project-tag--" + normalize(type).replace(/[^a-z0-9_-]/g, "-");
     span.textContent = text;
     return span;
+
+  //takes the array of projects from the api and draws them on the page as cards
+  //if array is empty it shows the "no results" message instead
+  function renderResults(projects, message) {
+    resultsSection.style.display = "block";
+    resultsLoadingEl.style.display = "none";
+    // Clear out any cards from a previous search before showing new ones
+    resultsGrid.innerHTML = "";
+
+    if (!projects || projects.length === 0) {
+      resultsGrid.style.display     = "none";
+      resultsEmptyEl.style.display  = "block";
+      if (message && emptyMessageEl) emptyMessageEl.textContent = message;
+      resultsSection.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    resultsEmptyEl.style.display = "none";
+    resultsGrid.style.display = "grid";
+
+    projects.forEach(function (project) {
+      resultsGrid.appendChild(buildProjectCard(project));
+    });
+
+    resultsSection.scrollIntoView({ behavior: "smooth" });
+ main
   }
 
   function buildProjectCard(project) {
