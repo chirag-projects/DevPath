@@ -111,9 +111,33 @@ function saveProgressState() {
   }
 }
 
+// Points awarded per action
+var POINTS_PER_SEARCH     = 5;
+var POINTS_PER_VIEW       = 10;
+var POINTS_PER_CODE_OPEN  = 15;
+var POINTS_PER_COMPLETION = 30;
+
+var PROGRESS_TARGET_SEARCHES     = 10;
+var PROGRESS_TARGET_VIEWS        = 10;
+var PROGRESS_TARGET_CODE_OPENS   = 10;
+var PROGRESS_TARGET_COMPLETIONS  = 5;
+
+// Maximum achievable points given the targets above
+var PROGRESS_MAX_POINTS = (
+  PROGRESS_TARGET_SEARCHES    * POINTS_PER_SEARCH     +   // 50
+  PROGRESS_TARGET_VIEWS       * POINTS_PER_VIEW       +   // 100
+  PROGRESS_TARGET_CODE_OPENS  * POINTS_PER_CODE_OPEN  +   // 150
+  PROGRESS_TARGET_COMPLETIONS * POINTS_PER_COMPLETION     // 150
+);  // total = 450
+
 function computeProgressPoints() {
-  progress.points = progress.searches * 5 + progress.projectViews * 10 +
-    progress.codeOpens * 15 + progress.completions * 30;
+  var raw =
+    progress.searches      * POINTS_PER_SEARCH     +
+    progress.projectViews  * POINTS_PER_VIEW       +
+    progress.codeOpens     * POINTS_PER_CODE_OPEN  +
+    progress.completions   * POINTS_PER_COMPLETION;
+  // Clamp stored points so they never exceed max — prevents aria-valuenow > 100
+  progress.points = Math.min(raw, PROGRESS_MAX_POINTS);
 }
 
 function showAchievementToast(title, detail) {
@@ -183,7 +207,10 @@ function updateProfileWidgets() {
       "<li><strong>Projects Completed</strong><span>" + progress.completions + "</span></li>";
   }
   if (meterFill) {
-    var percentage = Math.min(100, Math.round((progress.points / 250) * 100));
+    var percentage = Math.min(
+      100,
+      Math.round((progress.points / PROGRESS_MAX_POINTS) * 100)
+    );
     meterFill.style.width = percentage + "%";
     meterFill.setAttribute("aria-valuenow", String(percentage));
     meterFill.textContent = percentage + "%";
