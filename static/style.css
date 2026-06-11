@@ -3662,6 +3662,41 @@ input[type="text"]:not(.skill-input-wrap input):focus {
   }
 }
 
+/* =============================================================
+   BUGFIX: Prevent hero visual cards from overlapping code preview
+   - Ensure the code preview always has layout space and higher stacking
+   - Slightly increase vertical gap between visual elements
+   - Reduce how far the stats section pulls up over the hero to avoid
+     accidental overlap on mid-sized viewports
+   ============================================================= */
+.hero-visual {
+  gap: 18px; /* slightly larger gap to avoid tight stacking */
+}
+
+.hero-visual-main {
+  position: relative;
+  z-index: 3; /* keep code preview above floating cards when necessary */
+  min-height: 220px; /* ensure preview has vertical space on narrow viewports */
+}
+
+.hero-visual-card {
+  position: relative;
+  z-index: 2;
+}
+
+/* Reduce aggressive negative pull of the following stats section which
+   can sometimes visually overlap hero content at certain widths. This
+   override is scoped to the immediate following section to minimize
+   layout changes elsewhere. */
+.hero + .stats-section {
+  margin-top: -20px;
+}
+
+@media (max-width: 1024px) {
+  .hero-visual-main { min-height: 260px; }
+}
+
+
 @media (max-width: 860px) {
   .features-grid {
     grid-template-columns: 1fr;

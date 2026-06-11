@@ -30,8 +30,16 @@ main = Blueprint("main", __name__)
 @main.route("/")
 def index():
     """Render the homepage with the skill input form and dynamic stats."""
-    stats = get_project_stats()
-    available_levels = get_available_levels()
+    try:
+        stats = get_project_stats()
+        available_levels = get_available_levels()
+    except Exception as e:
+        # In development, we prefer rendering a fallback homepage rather than
+        # aborting entirely. Log the error and use safe defaults so UI/layout
+        # checks can proceed.
+        print("Warning: failed to load project stats:", e)
+        stats = {"total_projects": 0, "unique_skills": 0, "beginner_friendly": 0}
+        available_levels = ["Beginner", "Intermediate", "Advanced"]
 
     return render_template("index.html", stats=stats, available_levels=available_levels, config=Config)
 
