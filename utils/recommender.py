@@ -5,6 +5,9 @@ import math
 import re
 from collections import Counter
 
+import json
+import os
+
 from utils.data_loader import load_all_projects
 
 MAX_RESULTS = 3
@@ -116,17 +119,20 @@ def score_single_project(project, user_skills, level, interest, time_availabilit
     if project.get("interest", "").lower() == interest.lower():
         score += SCORING_WEIGHTS["interest"]
 
-    if project.get("time", "").lower() == time_availability.lower():
+    if project_time == user_time:
         score += SCORING_WEIGHTS["time"]
 
     return score
+
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
 
 def get_recommendations(skills_string, level, interest, time_availability):
     user_skills = parse_skills(skills_string)
     all_projects = load_all_projects()
 
-    scored_projects = []
-
+    scored = []
     for project in all_projects:
         rule_score = score_single_project(
             project,
@@ -162,14 +168,20 @@ def validate_recommendation_inputs(skills, level, interest, time_availability):
 
     if not skills or not skills.strip():
         errors.append("Please enter at least one skill.")
+    elif not parse_skills(skills):
+        errors.append("Please enter at least one valid skill.")
 
     if not level or not level.strip():
         errors.append("Please select an experience level.")
+    elif level.strip().lower() not in VALID_LEVELS:
+        errors.append("Invalid experience level. Choose Beginner, Intermediate, or Advanced.")
 
-    if not interest or not interest.strip():
-        errors.append("Please select an area of interest.")
+    if not interest or not isinstance(interest, str) or interest.strip().lower() not in VALID_INTERESTS:
+        errors.append("Please select a valid area of interest.")
 
     if not time_availability or not time_availability.strip():
         errors.append("Please select your time availability.")
+    elif time_availability.strip().lower() not in VALID_TIME_AVAILABILITY:
+        errors.append("Invalid time availability. Choose Low, Medium, or High.")
 
     return errors
