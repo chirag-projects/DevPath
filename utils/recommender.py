@@ -12,6 +12,9 @@ from utils.data_loader import load_all_projects
 
 MAX_RESULTS = 3
 
+VALID_LEVELS = {"beginner", "intermediate", "advanced"}
+VALID_INTERESTS = {"web", "data", "education", "automation", "games", "cybersecurity", "devops", "backend", "tools", "productivity", "business logic", "mobile", "machine learning/ai"}
+VALID_TIME_AVAILABILITY = {"low", "medium", "high"}
 SCORING_WEIGHTS = {
     "skill": 3,
     "level": 2,
@@ -29,6 +32,15 @@ SKILL_ALIASES = {
 }
 
 def parse_skills(skills_string):
+    if not skills_string or not skills_string.strip():
+        return []
+    try:
+        raw_skills = json.loads(skills_string)
+        if isinstance(raw_skills, list):
+            return [SKILL_ALIASES.get(s.strip().lower(), s.strip().lower()) for s in raw_skills if str(s).strip()]
+    except json.JSONDecodeError:
+        pass
+
     raw_skills = [
         s.strip().lower()
         for s in skills_string.split(",")
@@ -111,7 +123,8 @@ def score_single_project(project, user_skills, level, interest, time_availabilit
     # skills required by the current project.
     matched_skills = sum(1 for skill in user_skills if skill in project_skills)
 
-    score += matched_skills * SCORING_WEIGHTS["skill"]
+    coverage = (matched_skills / len(project_skills)) if project_skills else 0
+    score += matched_skills * SCORING_WEIGHTS["skill"] * coverage
 
     if project.get("level", "").lower() == level.lower():
         score += SCORING_WEIGHTS["level"]
@@ -119,7 +132,7 @@ def score_single_project(project, user_skills, level, interest, time_availabilit
     if project.get("interest", "").lower() == interest.lower():
         score += SCORING_WEIGHTS["interest"]
 
-    if project_time == user_time:
+    if project.get("time", "").lower() == time_availability.lower():
         score += SCORING_WEIGHTS["time"]
 
     return score
@@ -132,7 +145,7 @@ def get_recommendations(skills_string, level, interest, time_availability):
     user_skills = parse_skills(skills_string)
     all_projects = load_all_projects()
 
-    scored = []
+    scored_projects = []
     for project in all_projects:
         rule_score = score_single_project(
             project,
@@ -151,9 +164,6 @@ def get_recommendations(skills_string, level, interest, time_availability):
             all_projects,
         )
 
-    # Sort projects in descending order so the
-    # most relevant recommendations appear first.
-    scored_projects.sort(key=lambda item: (item["score"], item["project"].get("id", 0)), reverse=True)
         final_score = rule_score + similarity_score
 
         if final_score > 0:
@@ -162,7 +172,8 @@ def get_recommendations(skills_string, level, interest, time_availability):
                 "score": final_score,
             })
 
-    scored_projects.sort(key=lambda item: item["score"], reverse=True)
+    # Sort projects in descending order so the most relevant recommendations appear first.
+    scored_projects.sort(key=lambda item: (item["score"], item["project"].get("id", 0)), reverse=True)
 
     return [item["project"] for item in scored_projects[:MAX_RESULTS]]
 
