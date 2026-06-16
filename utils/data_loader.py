@@ -10,7 +10,6 @@ DATA_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "projects.json
 
 logger = logging.getLogger("devpath.data_loader")
 
-
 def validate_projects(projects):
     """
     Validate project dataset integrity.
@@ -71,7 +70,7 @@ def validate_projects(projects):
                     url,
                 )
 
-
+_projects_cache = None
 def load_all_projects():
     """Read and return the full list of projects from the JSON file.
 

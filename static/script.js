@@ -3,6 +3,7 @@
 // ============================================================
 // THEME PREVIEW MODAL & TOGGLE
 // ============================================================
+const PROGRESS_MAX_POINTS = 100; // use whatever the correct value should be
 document.addEventListener("DOMContentLoaded", function () {
   // Inject the theme modal HTML
   var modalHtml = `
@@ -37,6 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
   </div>
 </div>
+<!-- constants should load FIRST -->
+<script src="/static/constants.js"></script>
+<script src="/static/script.js"></script>
   `;
   document.body.insertAdjacentHTML("beforeend", modalHtml);
 
